@@ -1,13 +1,18 @@
 import { apiRouter } from "@/lib/router";
 import { IRouteHandler, processRequest, TNextContext } from "nexpresst";
 import { NextRequest } from "next/server";
+import {
+  postParamsSchema,
+  postPayloadSchema,
+  TPostParams,
+  TPostPayload,
+} from "../schemas";
+import { validate } from "@/lib/middlewares/validate";
 
-type TParams = { id: string };
-type TPayload = { title: string; description: string };
 type TResponseData = { id: string; title: string; description: string };
 
 const getPostByIdHandler: IRouteHandler<
-  TParams,
+  TPostParams,
   unknown,
   unknown,
   TResponseData
@@ -20,9 +25,9 @@ const getPostByIdHandler: IRouteHandler<
 };
 
 const updatePostByIdHandler: IRouteHandler<
-  TParams,
+  TPostParams,
   unknown,
-  TPayload,
+  TPostPayload,
   TResponseData
 > = async (req, res) => {
   // your logic here
@@ -33,8 +38,8 @@ const updatePostByIdHandler: IRouteHandler<
   });
 };
 
-const deletPostByIdHandler: IRouteHandler<TParams, unknown> = async (
-  req,
+const deletPostByIdHandler: IRouteHandler<TPostParams, unknown> = async (
+  _req,
   res
 ) => {
   // your logic here
@@ -42,16 +47,25 @@ const deletPostByIdHandler: IRouteHandler<TParams, unknown> = async (
 };
 
 export function GET(req: NextRequest, context: TNextContext) {
-  const router = apiRouter.get(getPostByIdHandler);
+  const router = apiRouter
+    .use(validate("params", postParamsSchema))
+    .get(getPostByIdHandler);
   return processRequest(req, context, router);
 }
 
 export function PATCH(req: NextRequest, context: TNextContext) {
-  const router = apiRouter.patch(updatePostByIdHandler);
+  const router = apiRouter
+    .use(
+      validate("params", postParamsSchema),
+      validate("payload", postPayloadSchema)
+    )
+    .patch(updatePostByIdHandler);
   return processRequest(req, context, router);
 }
 
 export function DELETE(req: NextRequest, context: TNextContext) {
-  const router = apiRouter.delete(deletPostByIdHandler);
+  const router = apiRouter
+    .use(validate("params", postParamsSchema))
+    .delete(deletPostByIdHandler);
   return processRequest(req, context, router);
 }

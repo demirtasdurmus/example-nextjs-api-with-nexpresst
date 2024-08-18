@@ -1,14 +1,19 @@
 import { apiRouter } from "@/lib/router";
 import { NextRequest } from "next/server";
 import { IRouteHandler, processRequest, TNextContext } from "nexpresst";
+import {
+  postPayloadSchema,
+  postsquerySchema,
+  TPostPayload,
+  TPostQuery,
+} from "./schemas";
+import { validate } from "@/lib/middlewares/validate";
 
-type TQuery = { page: number; limit: number };
-type TPayload = { title: string; description: string };
 type TResponseData = { id: string; title: string; description: string };
 
 const getPostsHandler: IRouteHandler<
   unknown,
-  TQuery,
+  TPostQuery,
   unknown,
   TResponseData[]
 > = async (req, res) => {
@@ -25,7 +30,7 @@ const getPostsHandler: IRouteHandler<
 const createPostHandler: IRouteHandler<
   unknown,
   unknown,
-  TPayload,
+  TPostPayload,
   TResponseData
 > = async (req, res) => {
   // your logic goes here
@@ -37,11 +42,15 @@ const createPostHandler: IRouteHandler<
 };
 
 export function GET(req: NextRequest, ctx: TNextContext) {
-  const router = apiRouter.get(getPostsHandler);
+  const router = apiRouter
+    .use(validate("query", postsquerySchema))
+    .get(getPostsHandler);
   return processRequest(req, ctx, router);
 }
 
 export function POST(req: NextRequest, ctx: TNextContext) {
-  const router = apiRouter.post(createPostHandler);
+  const router = apiRouter
+    .use(validate("payload", postPayloadSchema))
+    .post(createPostHandler);
   return processRequest(req, ctx, router);
 }
