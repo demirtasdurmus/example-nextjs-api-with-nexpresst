@@ -5,42 +5,44 @@ import { db } from "@/db/client";
 import * as schemas from "@/db/schemas";
 import { authSchema, TAuthPayload } from "../schemas";
 import { eq } from "drizzle-orm";
-import { ConflictError } from "@/lib/errors.ts";
+import { BadRequestError, ConflictError } from "@/lib/errors.ts";
 import { validate } from "@/lib/middlewares/validate";
-import { hashPassword } from "@/utils";
+import { comparePassword, hashPassword } from "@/utils";
 
-export type TRegisterResponseData = { message: string };
+export type TLoginResponseData = { message: string };
 
-const registerHandler: IRouteHandler<
+const loginHandler: IRouteHandler<
   unknown,
   unknown,
   TAuthPayload,
-  TRegisterResponseData
+  TLoginResponseData
 > = async (req, res) => {
   const [user] = await db
-    .select({ id: schemas.user.id })
+    .select({ password: schemas.user.password })
     .from(schemas.user)
     .where(eq(schemas.user.email, req.payload.email));
 
-  if (user) {
-    throw new ConflictError("User already exists");
+  if (!user) {
+    throw new BadRequestError("Invalid email or password");
   }
 
-  const hashedPassword = await hashPassword(req.payload.password);
+  const isPasswordCorrect = await comparePassword(
+    req.payload.password,
+    user.password
+  );
 
-  await db.insert(schemas.user).values({
-    email: req.payload.email,
-    password: hashedPassword,
-  });
+  if (!isPasswordCorrect) {
+    throw new BadRequestError("Invalid email or password");
+  }
 
-  return res.statusCode(201).send({
-    message: "Registered successfully",
+  return res.statusCode(200).send({
+    message: "Logged in successfully",
   });
 };
 
 export function POST(req: NextRequest, ctx: TNextContext) {
   const router = apiRouter
     .use(validate("payload", authSchema))
-    .post(registerHandler);
+    .post(loginHandler);
   return processRequest(req, ctx, router);
 }

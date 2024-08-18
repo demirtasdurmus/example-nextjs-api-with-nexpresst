@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const registerSchema = z.object({
+export const authSchema = z.object({
   email: z
     .string({ required_error: "Email is required" })
     .email("Email is invalid"),
@@ -9,4 +9,4 @@ export const registerSchema = z.object({
     .min(4, "Password must be at least 4 characters long"),
 });
 
-export type TRegisterPayload = z.infer<typeof registerSchema>;
+export type TAuthPayload = z.infer<typeof authSchema>;
