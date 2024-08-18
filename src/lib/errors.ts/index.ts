@@ -28,3 +28,9 @@ export class NotFoundError extends BaseError {
     super(httpStatus["404_NAME"], message, httpStatus.NOT_FOUND);
   }
 }
+
+export class ConflictError extends BaseError {
+  constructor(message: string) {
+    super(httpStatus["409_NAME"], message, httpStatus.CONFLICT);
+  }
+}
