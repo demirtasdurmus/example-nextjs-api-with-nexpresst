@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import { IRouteHandler, processRequest, TNextContext } from "nexpresst";
 import {
   postPayloadSchema,
-  postsquerySchema,
+  postsQuerySchema,
   TPostPayload,
   TPostQuery,
 } from "./schemas";
@@ -42,14 +42,14 @@ const createPostHandler: IRouteHandler<
 };
 
 export function GET(req: NextRequest, ctx: TNextContext) {
-  const router = apiRouter
-    .use(validate("query", postsquerySchema))
+  const router = apiRouter()
+    .use(validate("query", postsQuerySchema))
     .get(getPostsHandler);
   return processRequest(req, ctx, router);
 }
 
 export function POST(req: NextRequest, ctx: TNextContext) {
-  const router = apiRouter
+  const router = apiRouter()
     .use(validate("payload", postPayloadSchema))
     .post(createPostHandler);
   return processRequest(req, ctx, router);

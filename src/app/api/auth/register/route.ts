@@ -39,7 +39,7 @@ const registerHandler: IRouteHandler<
 };
 
 export function POST(req: NextRequest, ctx: TNextContext) {
-  const router = apiRouter
+  const router = apiRouter()
     .use(validate("payload", authSchema))
     .post(registerHandler);
   return processRequest(req, ctx, router);

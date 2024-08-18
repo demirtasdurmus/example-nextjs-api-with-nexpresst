@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const postsquerySchema = z.object({
+export const postsQuerySchema = z.object({
   page: z.coerce
     .number({
       invalid_type_error: "Page must be a number",
@@ -19,7 +19,7 @@ export const postsquerySchema = z.object({
     .default(1),
 });
 
-export type TPostQuery = z.infer<typeof postsquerySchema>;
+export type TPostQuery = z.infer<typeof postsQuerySchema>;
 
 export const postPayloadSchema = z.object({
   title: z.string({

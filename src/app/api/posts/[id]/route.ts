@@ -47,14 +47,14 @@ const deletPostByIdHandler: IRouteHandler<TPostParams, unknown> = async (
 };
 
 export function GET(req: NextRequest, context: TNextContext) {
-  const router = apiRouter
+  const router = apiRouter()
     .use(validate("params", postParamsSchema))
     .get(getPostByIdHandler);
   return processRequest(req, context, router);
 }
 
 export function PATCH(req: NextRequest, context: TNextContext) {
-  const router = apiRouter
+  const router = apiRouter()
     .use(
       validate("params", postParamsSchema),
       validate("payload", postPayloadSchema)
@@ -64,7 +64,7 @@ export function PATCH(req: NextRequest, context: TNextContext) {
 }
 
 export function DELETE(req: NextRequest, context: TNextContext) {
-  const router = apiRouter
+  const router = apiRouter()
     .use(validate("params", postParamsSchema))
     .delete(deletPostByIdHandler);
   return processRequest(req, context, router);

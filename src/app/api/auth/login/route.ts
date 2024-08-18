@@ -41,7 +41,7 @@ const loginHandler: IRouteHandler<
 };
 
 export function POST(req: NextRequest, ctx: TNextContext) {
-  const router = apiRouter
+  const router = apiRouter()
     .use(validate("payload", authSchema))
     .post(loginHandler);
   return processRequest(req, ctx, router);
