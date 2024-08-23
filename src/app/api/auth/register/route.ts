@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { IRouteHandler, processRequest, TNextContext } from "nexpresst";
+import { IRouteHandler, TNextContext } from "nexpresst";
 import { apiRouter } from "@/lib/router";
 import { db } from "@/db/client";
 import * as schemas from "@/db/schemas";
@@ -39,8 +39,7 @@ const registerHandler: IRouteHandler<
 };
 
 export function POST(req: NextRequest, ctx: TNextContext) {
-  const router = apiRouter()
+  return apiRouter(req, ctx)
     .use(validate("payload", authSchema))
-    .post(registerHandler);
-  return processRequest(req, ctx, router);
+    .handle(registerHandler);
 }

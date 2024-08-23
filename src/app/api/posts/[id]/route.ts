@@ -1,5 +1,5 @@
 import { apiRouter } from "@/lib/router";
-import { IRouteHandler, processRequest, TNextContext } from "nexpresst";
+import { IRouteHandler, TNextContext } from "nexpresst";
 import { NextRequest } from "next/server";
 import {
   postParamsSchema,
@@ -46,26 +46,23 @@ const deletPostByIdHandler: IRouteHandler<TPostParams, unknown> = async (
   return res.statusCode(204).send();
 };
 
-export function GET(req: NextRequest, context: TNextContext) {
-  const router = apiRouter()
+export function GET(req: NextRequest, ctx: TNextContext) {
+  return apiRouter(req, ctx)
     .use(validate("params", postParamsSchema))
-    .get(getPostByIdHandler);
-  return processRequest(req, context, router);
+    .handle(getPostByIdHandler);
 }
 
-export function PATCH(req: NextRequest, context: TNextContext) {
-  const router = apiRouter()
+export function PATCH(req: NextRequest, ctx: TNextContext) {
+  return apiRouter(req, ctx)
     .use(
       validate("params", postParamsSchema),
       validate("payload", postPayloadSchema)
     )
-    .patch(updatePostByIdHandler);
-  return processRequest(req, context, router);
+    .handle(updatePostByIdHandler);
 }
 
-export function DELETE(req: NextRequest, context: TNextContext) {
-  const router = apiRouter()
+export function DELETE(req: NextRequest, ctx: TNextContext) {
+  return apiRouter(req, ctx)
     .use(validate("params", postParamsSchema))
-    .delete(deletPostByIdHandler);
-  return processRequest(req, context, router);
+    .handle(deletPostByIdHandler);
 }

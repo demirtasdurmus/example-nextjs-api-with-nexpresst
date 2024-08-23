@@ -1,10 +1,11 @@
 import { apiRouter } from "@/lib/router";
-import { exportAllMethods, IRouteHandler } from "nexpresst";
+import { exportAllMethodsV2, IRouteHandler } from "nexpresst";
 
-const notFoundHandler: IRouteHandler = async (req, res) => {
+const notFoundHandler: IRouteHandler = async (_req, res) => {
   return res.statusCode(404).end();
 };
 
-const router = apiRouter().all(notFoundHandler);
-
-export const { GET, POST, PUT, DELETE, PATCH, HEAD } = exportAllMethods(router);
+export const { GET, POST, PUT, DELETE, PATCH, HEAD } = exportAllMethodsV2(
+  apiRouter,
+  notFoundHandler
+);

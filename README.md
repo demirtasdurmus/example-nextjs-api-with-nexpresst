@@ -8,7 +8,9 @@ This project is designed to provide a comprehensive example of building and mana
 
 ## Deployment
 
-The example application is deployed and accessible at: [https://example-nextjs-api-with-nexpresst.vercel.app](https://example-nextjs-api-with-nexpresst.vercel.app).
+<!-- TODO:Update this to main branch domain once nextpresst 1.3.0 is a stable release, https://example-nextjs-api-with-nexpresst.vercel.app/ -->
+
+The example application is deployed and accessible at: [https://example-nextjs-api-with-nexpresst-release.vercel.app](https://example-nextjs-api-with-nexpresst-release.vercel.app).
 
 Feel free to explore the deployed application to see `nexpresst` in action!
 
@@ -16,15 +18,24 @@ Feel free to explore the deployed application to see `nexpresst` in action!
 
 ### Base URL
 
-The base URL for the API is: `https://example-nextjs-api-with-nexpresst.vercel.app/api`.
+<!-- TODO: Update base url as well. -->
+
+The base URL for the API is: `https://example-nextjs-api-with-nexpresst-release.vercel.app/api`.
 
 ### Endpoints
 
-- GET /posts: Retrieve a list of posts.
-- POST /posts: Create a new post.
-- GET /posts/: Retrieve a specific post by ID.
-- PATCH /posts/: Update a post by ID.
-- DELETE /posts/: Delete a post by ID.
+- **Auth**
+
+  - POST `/auth/register`: Register
+  - POST `/auth/login`: Login
+
+- **Posts**
+
+  - GET `/posts`: Retrieve a list of posts.
+  - POST `/posts`: Create a new post.
+  - GET `/posts/[id]`: Retrieve a specific post by ID.
+  - PATCH `/posts/[id]`: Update a post by ID.
+  - DELETE `/posts/[id]`: Delete a post by ID.
 
 ## Getting Started
 

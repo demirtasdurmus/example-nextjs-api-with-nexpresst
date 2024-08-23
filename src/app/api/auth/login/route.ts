@@ -1,11 +1,11 @@
 import { NextRequest } from "next/server";
-import { IRouteHandler, processRequest, TNextContext } from "nexpresst";
+import { IRouteHandler, TNextContext } from "nexpresst";
 import { apiRouter } from "@/lib/router";
 import { db } from "@/db/client";
 import * as schemas from "@/db/schemas";
 import { authSchema, TAuthPayload } from "../schemas";
 import { eq } from "drizzle-orm";
-import { BadRequestError, ConflictError } from "@/lib/errors.ts";
+import { BadRequestError } from "@/lib/errors.ts";
 import { validate } from "@/lib/middlewares/validate";
 import { comparePassword, hashPassword } from "@/utils";
 
@@ -41,8 +41,7 @@ const loginHandler: IRouteHandler<
 };
 
 export function POST(req: NextRequest, ctx: TNextContext) {
-  const router = apiRouter()
+  return apiRouter(req, ctx)
     .use(validate("payload", authSchema))
-    .post(loginHandler);
-  return processRequest(req, ctx, router);
+    .handle(loginHandler);
 }
