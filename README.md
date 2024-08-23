@@ -8,9 +8,7 @@ This project is designed to provide a comprehensive example of building and mana
 
 ## Deployment
 
-<!-- TODO:Update this to main branch domain once nextpresst 1.3.0 is a stable release, https://example-nextjs-api-with-nexpresst.vercel.app/ -->
-
-The example application is deployed and accessible at: [https://example-nextjs-api-with-nexpresst-release.vercel.app](https://example-nextjs-api-with-nexpresst-release.vercel.app).
+The example application is deployed and accessible at: [https://example-nextjs-api-with-nexpresst.vercel.app/](https://example-nextjs-api-with-nexpresst.vercel.app/).
 
 Feel free to explore the deployed application to see `nexpresst` in action!
 
@@ -18,9 +16,7 @@ Feel free to explore the deployed application to see `nexpresst` in action!
 
 ### Base URL
 
-<!-- TODO: Update base url as well. -->
-
-The base URL for the API is: `https://example-nextjs-api-with-nexpresst-release.vercel.app/api`.
+The base URL for the API is: `https://example-nextjs-api-with-nexpresst.vercel.app/api`.
 
 ### Endpoints
 
