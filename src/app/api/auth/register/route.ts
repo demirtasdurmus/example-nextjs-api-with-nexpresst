@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { IRouteHandler, TNextContext } from "nexpresst";
-import { apiRouter } from "@/lib/router";
+import { apiRouter } from "@/lib/api-router";
 import { db } from "@/db/client";
 import * as schemas from "@/db/schemas";
 import { authSchema, TAuthPayload } from "../schemas";

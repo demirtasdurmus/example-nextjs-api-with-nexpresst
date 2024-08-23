@@ -1,4 +1,4 @@
-import { apiRouter } from "@/lib/router";
+import { apiRouter } from "@/lib/api-router";
 import { IRouteHandler, TNextContext } from "nexpresst";
 import { NextRequest } from "next/server";
 import {
