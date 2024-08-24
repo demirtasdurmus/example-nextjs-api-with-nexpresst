@@ -11,6 +11,20 @@ import { comparePassword, hashPassword } from "@/utils";
 
 export type TLoginResponseData = { message: string };
 
+/**
+ * Encodes a cookie value to base64
+ */
+function encodeCookieValue(value: string) {
+  return Buffer.from(value).toString("base64");
+}
+
+/**
+ * Decodes a cookie value from base64
+ */
+function decodeCookieValue(value: string) {
+  return Buffer.from(value, "base64").toString("utf-8");
+}
+
 const loginHandler: IRouteHandler<
   unknown,
   unknown,
@@ -35,9 +49,22 @@ const loginHandler: IRouteHandler<
     throw new BadRequestError("Invalid email or password");
   }
 
-  return res.statusCode(200).send({
-    message: "Logged in successfully",
-  });
+  return res
+    .cookie(
+      "session_token",
+      "thisisthesessiontokenthatiscreatedwithjsonwebtoken",
+      {
+        httpOnly: true,
+        sameSite: true,
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        encode: encodeCookieValue,
+      }
+    )
+    .statusCode(200)
+    .send({
+      message: "Logged in successfully",
+    });
 };
 
 export function POST(req: NextRequest, ctx: TNextContext) {
