@@ -6,7 +6,6 @@ import {
   expressMiddlewareAdapter,
 } from "nexpresst";
 import { errorHandler } from "./middlewares/error-handler";
-// import { cors } from "./middlewares/cors";
 import { NextRequest } from "next/server";
 import helmet from "helmet";
 import cors from "cors";
