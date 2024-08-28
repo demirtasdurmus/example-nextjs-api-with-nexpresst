@@ -7,23 +7,10 @@ import { authSchema, TAuthPayload } from "../schemas";
 import { eq } from "drizzle-orm";
 import { BadRequestError } from "@/lib/errors.ts";
 import { validate } from "@/lib/middlewares/validate";
-import { comparePassword, hashPassword } from "@/utils";
+import { SESSION_TOKEN } from "@/lib/constants";
+import { comparePassword, encodeCookieValue } from "@/lib/utils";
 
 export type TLoginResponseData = { message: string };
-
-/**
- * Encodes a cookie value to base64
- */
-function encodeCookieValue(value: string) {
-  return Buffer.from(value).toString("base64");
-}
-
-/**
- * Decodes a cookie value from base64
- */
-function decodeCookieValue(value: string) {
-  return Buffer.from(value, "base64").toString("utf-8");
-}
 
 const loginHandler: IRouteHandler<
   unknown,
@@ -51,11 +38,12 @@ const loginHandler: IRouteHandler<
 
   return res
     .cookie(
-      "session_token",
+      SESSION_TOKEN,
       "thisisthesessiontokenthatiscreatedwithjsonwebtoken",
       {
         httpOnly: true,
         sameSite: true,
+        path: "/",
         secure: false,
         maxAge: 1000 * 60 * 60 * 24 * 7,
         encode: encodeCookieValue,
