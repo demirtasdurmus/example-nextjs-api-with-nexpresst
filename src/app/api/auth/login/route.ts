@@ -43,7 +43,6 @@ const loginHandler: IRouteHandler<
       {
         httpOnly: true,
         sameSite: true,
-        path: "/",
         secure: false,
         maxAge: 1000 * 60 * 60 * 24 * 7,
         encode: encodeCookieValue,
