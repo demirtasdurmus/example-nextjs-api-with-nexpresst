@@ -7,7 +7,7 @@ import { authSchema, TAuthPayload } from "../schemas";
 import { eq } from "drizzle-orm";
 import { ConflictError } from "@/lib/errors.ts";
 import { validate } from "@/lib/middlewares/validate";
-import { hashPassword } from "@/utils";
+import { hashPassword } from "@/lib/utils";
 
 export type TRegisterResponseData = { message: string };
 

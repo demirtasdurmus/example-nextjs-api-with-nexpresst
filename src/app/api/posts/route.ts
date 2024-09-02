@@ -8,6 +8,7 @@ import {
   TPostQuery,
 } from "./schemas";
 import { validate } from "@/lib/middlewares/validate";
+import { protect } from "@/lib/middlewares/protect";
 
 type TResponseData = { id: string; title: string; description: string };
 
@@ -50,5 +51,6 @@ export function GET(req: NextRequest, ctx: TNextContext) {
 export function POST(req: NextRequest, ctx: TNextContext) {
   return apiRouter(req, ctx)
     .use(validate("payload", postPayloadSchema))
+    .use(protect)
     .handle(createPostHandler);
 }
