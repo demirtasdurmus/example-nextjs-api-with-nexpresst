@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { IMiddlewareHandler } from "nexpresst";
-import { BadRequestError } from "../errors.ts";
+import { BadRequestError } from "../errors";
 
 export type TValidationMap = "params" | "query" | "payload";
 

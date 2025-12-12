@@ -1,6 +1,6 @@
 import httpStatus from "http-status";
 import { IMiddlewareHandler } from "nexpresst";
-import { UnauthorizedError } from "../errors.ts";
+import { UnauthorizedError } from "../errors";
 import { SESSION_TOKEN } from "../constants";
 import { decodeCookieValue } from "../utils";
 

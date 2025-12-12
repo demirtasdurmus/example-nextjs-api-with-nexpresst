@@ -2,7 +2,7 @@ import { apiRouter } from "@/lib/api-router";
 import { exportAllHttpMethods, IRouteHandler } from "nexpresst";
 
 const notFoundHandler: IRouteHandler = async (_req, res) => {
-  return res.statusCode(404).end();
+  return res.statusCode(404).send();
 };
 
 export const { GET, POST, PUT, DELETE, PATCH, HEAD } = exportAllHttpMethods(
