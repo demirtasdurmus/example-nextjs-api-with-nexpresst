@@ -8,6 +8,12 @@ export class BaseError extends Error {
     super(message);
     this.name = name;
     this.statusCode = statusCode;
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, this.constructor);
+    }
+
+    Object.setPrototypeOf(this, BaseError.prototype);
   }
 }
 

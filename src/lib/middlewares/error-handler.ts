@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from "http-status";
 import { IMiddlewareHandler } from "nexpresst";
-import { BaseError } from "../errors.ts";
+import { BaseError } from "../errors";
 
 export type TErrorResponseData = {
   name: string;

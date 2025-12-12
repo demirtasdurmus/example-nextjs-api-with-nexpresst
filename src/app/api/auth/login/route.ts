@@ -5,7 +5,7 @@ import { db } from "@/db/client";
 import * as schemas from "@/db/schemas";
 import { authSchema, TAuthPayload } from "../schemas";
 import { eq } from "drizzle-orm";
-import { BadRequestError } from "@/lib/errors.ts";
+import { BadRequestError } from "@/lib/errors";
 import { validate } from "@/lib/middlewares/validate";
 import { SESSION_TOKEN } from "@/lib/constants";
 import { comparePassword, encodeCookieValue } from "@/lib/utils";

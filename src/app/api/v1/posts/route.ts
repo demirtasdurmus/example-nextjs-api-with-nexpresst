@@ -1,5 +1,5 @@
 import { apiRouter } from "@/lib/api-router";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { IRouteHandler, TNextContext } from "nexpresst";
 import { validate } from "@/lib/middlewares/validate";
 import { postsQuerySchema, TPostQuery } from "../../posts/schemas";
