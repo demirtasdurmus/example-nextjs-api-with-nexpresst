@@ -10,7 +10,6 @@ import { NextRequest } from "next/server";
 import helmet from "helmet";
 import cors from "cors";
 import compression from "compression";
-import { protect } from "./middlewares/protect";
 
 export const apiRouter = (req: NextRequest, ctx: TNextContext) =>
   new ApiRouter(req, ctx)

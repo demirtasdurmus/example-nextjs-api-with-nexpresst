@@ -38,7 +38,7 @@ const updatePostByIdHandler: IRouteHandler<
   });
 };
 
-const deletPostByIdHandler: IRouteHandler<TPostParams, unknown> = async (
+const deletePostByIdHandler: IRouteHandler<TPostParams, unknown> = async (
   _req,
   res
 ) => {
@@ -64,5 +64,5 @@ export function PATCH(req: NextRequest, ctx: TNextContext) {
 export function DELETE(req: NextRequest, ctx: TNextContext) {
   return apiRouter(req, ctx)
     .use(validate("params", postParamsSchema))
-    .handle(deletPostByIdHandler);
+    .handle(deletePostByIdHandler);
 }
