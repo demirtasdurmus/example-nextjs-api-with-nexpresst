@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { NextRequest } from "next/server";
+import { CustomRequest } from "nexpresst";
 
 /**
  * Hashes a password using bcrypt
@@ -32,6 +32,6 @@ export function decodeCookieValue(value: string) {
 /**
  * Builds a base URL from a request
  */
-export function buildBaseUrl(req: NextRequest) {
+export function buildBaseUrl(req: CustomRequest) {
   return `${req.nextUrl.protocol}//${req.nextUrl.host}`;
 }
